@@ -1,4 +1,4 @@
-import axios from '../../axios_api';
+import axios from '../../axios-instance';
 import {
     ADD_POST_SUCCESS, FETCH_NEWS_FAILURE,
     FETCH_NEWS_REQUEST,
@@ -45,6 +45,7 @@ export const addPost = (data, history) => {
         return axios.post('/news', data).then(
             () => {
                 dispatch(addPostSuccess());
+                history.push('/');
             });
     }
 };

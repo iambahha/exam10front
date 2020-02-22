@@ -1,18 +1,43 @@
 import React, {Component} from 'react';
-import {Button, Form, Input, Label} from 'reactstrap'
+import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 
 class CommentForm extends Component {
-	render() {
-		return (
-			<Form onSubmit={onSubmit}>
-				<Label for="name">Name</Label>
-				<Input type="text" name="name" id="name"  />
-				<Label for="comment">Comment</Label>
-				<Input type="text" name="comment" id="comment"  />
-				<Button type="submit">ADD</Button>
-			</Form>
-		);
-	}
+    state = {
+      author: '',
+      message: ''
+    };
+
+    valueChanged = event => {
+        const {name, value} = event.target;
+        this.setState({[name]: value});
+    };
+
+    submitHandler = event => {
+        event.preventDefault();
+        this.props.submit({...this.state, news_id: this.props.news_id});
+
+    };
+
+    render() {
+        return (
+            <div>
+                <h3>Enter comment:</h3>
+                <Form onSubmit={this.submitHandler} className='commentForm'>
+                    <FormGroup>
+                        <Label for="author">Name</Label>
+                        <Input type="text" name="author" value={this.state.author} id="author"  onChange={this.valueChanged} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="message">Message</Label>
+                        <Input type="text" name="message" value={this.state.message} id="message"  onChange={this.valueChanged} />
+                    </FormGroup>
+
+                    <Button type="submit" color="warning">Add comment</Button>
+                </Form>
+            </div>
+
+        );
+    }
 }
 
 export default CommentForm;

@@ -1,4 +1,4 @@
-import axios from '../../axios_api';
+import axios from '../../axios-instance';
 import {
     ADD_COMMENT_SUCCESS,
     FETCH_COMMENTS_FAILURE,

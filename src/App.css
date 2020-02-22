@@ -1,0 +1,20 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  color: aqua;
+  margin-bottom: 20px;
+}
+
+header li {
+    color: #000;
+    list-style: none;
+}
+
+.link {
+    color: #000;
+}
+
+.link:hover {
+    color: #000;
+}

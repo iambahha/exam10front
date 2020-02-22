@@ -1,22 +1,28 @@
-import React from 'react';
-import {Container} from 'reactstrap'
-import Posts from "./containers/Posts";
-import AddNewPost from "./containers/AddNewPost";
-import SinglePost from "./containers/SinglePost";
+import React, { Component } from 'react';
+import {Container} from 'reactstrap';
+import './App.css';
+import NewsPage from "./containers/NewsPage/NewsPage";
 import {Route, Switch} from "react-router-dom";
-function App() {
-  return (
-    <div className="App">
-      <Container>
-        <Switch>
-          <Route path="/" exact component={Posts} />
-          <Route path="/news" exact component={Posts} />
-          <Route path="/newpost" exact component={AddNewPost} />
-          <Route path="/news/:id" exact component={SinglePost} />
-        </Switch>
-      </Container>
-    </div>
-  );
+import NewsFullDetails from "./containers/NewsFullDetails/NewsFullDetails";
+import AddNews from "./containers/AddNews/AddNews";
+import Toolbar from "./components/Toolbar/Toolbar";
+
+class App extends Component {
+  render() {
+      return (
+      <div className="App">
+          <Container>
+              <Toolbar/>
+              <Switch>
+                  <Route path="/" exact component={NewsPage} />
+                  <Route path="/news" exact component={NewsPage} />
+                  <Route path="/news/add" exact component={AddNews} />
+                  <Route path="/news/:id" exact component={NewsFullDetails} />
+              </Switch>
+          </Container>
+      </div>
+    );
+  }
 }
 
 export default App;
