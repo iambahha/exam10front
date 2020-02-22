@@ -5,11 +5,11 @@ const Toolbar = () => {
     return (
         <header>
             <NavItem>
-                <NavLink className="link" href="/"><h1>News Website</h1></NavLink>
+                <NavLink className="link" href="/"><h1>News</h1></NavLink>
             </NavItem>
             <NavItem>
                 <Button color="info">
-                    <NavLink className="link" href="/news/add">Publish New Post</NavLink>
+                    <NavLink className="link" href="/news/add">New Post</NavLink>
                 </Button>
             </NavItem>
         </header>
