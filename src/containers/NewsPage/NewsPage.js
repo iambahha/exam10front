@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {Button} from "reactstrap";
 import NewsThumbnail from "../../components/NewsThumbnail/NewsThumbnail";
 
-// import './NewsPage.css';
+import './NewsPage.css';
 
 class NewsPage extends Component {
     componentDidMount() {
@@ -15,14 +15,13 @@ class NewsPage extends Component {
         if (this.props.newsLoading) {
             return <div>Loading...</div>
         }
-
         const news = this.props.news.map(item => (
             <li key={item.id}>
                 <NewsThumbnail image={item.image} title={item.title}/>
                 <div>
                     <h5>{item.title}</h5>
                     <p>{item.description}</p>
-                    <p>{new Date(item.datetime).toLocaleString()}</p>
+                    <p>{item.time}</p>
                     <Button
                         color="info"
                         onClick={() => this.props.history.push('news/' + item.id)}
@@ -39,7 +38,6 @@ class NewsPage extends Component {
 
             </li>
         ));
-
         return (
             <div className="NewsPage">
                 <ul>{news}</ul>

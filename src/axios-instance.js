@@ -1,8 +1,7 @@
-import  axios from 'axios';
-import {apiURL} from "./constants";
+import axios from 'axios';
 
-const instance = axios.create({
-    baseURL: apiURL
+const axiosApi = axios.create({
+    baseURL: 'http://localhost:8000',
 });
 
-export default instance;
+export default axiosApi;

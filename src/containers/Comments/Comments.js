@@ -4,38 +4,41 @@ import {addComment, fetchComments, removeComment} from "../../store/actions/comm
 
 import {connect} from "react-redux";
 import {Button} from "reactstrap";
-// import './Comments.css';
 
 
 class Comments extends Component {
     componentDidMount() {
-        this.props.fetchComments(this.props.news_id);
+        this.props.fetchComments();
     }
     render() {
-        if (this.props.commentsLoading) {
-            return <div>Loading...</div>
-        }
-
-        return (
-            <div className="Comments">
-                <h2>Comments ({this.props.comments.length}):</h2>
-                {this.props.comments.map(item => (
+        if (!this.props.comment) {
+            return (
+              <>
+                  <CommentForm submit={this.props.addComment} news_id={this.props.news_id} />
+              </>
+        )
+        } else {
+            return (
+              <div className="Comments">
+                  <h2>Comments:</h2>
+                  {this.props.comment.map(item => (
                     <div key={item.id} className="Comment">
                         <p>Author: {item.author}</p>
-                        <p>Message: {item.message}</p>
+                        <p>Message: {item.comment}</p>
                         <Button onClick={() => this.props.removeComment(item.id)}>remove</Button>
+                        <CommentForm submit={this.props.addComment} news_id={this.props.news_id} />
                     </div>
-                ))}
 
-                <CommentForm submit={this.props.addComment} news_id={this.props.news_id} />
-            </div>
-        );
+                  ))}
+              </div>
+            );
+        }
+
     }
 }
 
 const mapStateToProps = state => ({
-    comments: state.comments.comments,
-    commentsLoading: state.comments.loading
+    comment: state.comments.comment
 });
 
 const mapDispatchToProps = dispatch => ({

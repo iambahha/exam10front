@@ -1,4 +1,4 @@
-import axios from '../../axios-instance';
+import axiosApi from '../../axios-instance';
 import {
     ADD_COMMENT_SUCCESS,
     FETCH_COMMENTS_FAILURE,
@@ -12,20 +12,19 @@ export const fetchCommentsFailure = error => ({type: FETCH_COMMENTS_FAILURE, err
 export const addCommentSuccess = () => ({type: ADD_COMMENT_SUCCESS});
 export const removeCommentSuccess = (id) => ({type: REMOVE_COMMENT_SUCCESS, id});
 
-export const fetchComments = (id) => {
-    return dispatch => {
+export const fetchComments = (id) => async (dispatch) => {
+    try {
         dispatch(fetchCommentsRequest());
-        return axios.get('/comments/' + id).then(response => {
-                return dispatch(fetchCommentsSuccess(response.data));
-            }, error => {
-                dispatch(fetchCommentsFailure(error));
-            });
+        const response = await axiosApi.get('/comments?news_id=' + id);
+        dispatch(fetchCommentsSuccess(response.data));
+    } catch (e) {
+        dispatch(fetchCommentsFailure(e));
     }
 };
 
 export const addComment = (data) => {
     return dispatch => {
-        return axios.post('/comments', data).then(
+        return axiosApi.post('/comments', data).then(
             () => {
                 return dispatch(addCommentSuccess());
             });
@@ -34,7 +33,7 @@ export const addComment = (data) => {
 
 export const removeComment = (id) => {
     return dispatch => {
-        return axios.delete('/comments/' + id).then(
+        return axiosApi.delete('/comments/' + id).then(
             () => {
                 return dispatch(removeCommentSuccess(id));
             });

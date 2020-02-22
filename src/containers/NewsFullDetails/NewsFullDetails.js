@@ -4,7 +4,6 @@ import connect from "react-redux/es/connect/connect";
 import NewsThumbnail from "../../components/NewsThumbnail/NewsThumbnail";
 import Comments from "../Comments/Comments";
 
-// import './NewsFullDetails.css';
 
 class NewsFullDetails extends Component {
     componentDidMount() {
@@ -21,8 +20,8 @@ class NewsFullDetails extends Component {
                     <NewsThumbnail image={this.props.post.image} title={this.props.post.title} />
                     <div>
                         <h2>{this.props.post.title}</h2>
-                        <p>{new Date(this.props.post.datetime).toLocaleString()}</p>
-                        <p>{this.props.post.description}</p>
+                        <p>{this.props.post.time}</p>
+                        <p>{this.props.post.content}</p>
                     </div>
                 </div>
                 <Comments news_id={this.props.match.params.id}/>
@@ -32,8 +31,7 @@ class NewsFullDetails extends Component {
 }
 
 const mapStateToProps = state => ({
-    post: state.news.post,
-    postLoading: state.news.loading
+    post: state.news.post
 });
 
 const mapDispatchToProps = dispatch => ({

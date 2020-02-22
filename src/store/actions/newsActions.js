@@ -1,4 +1,4 @@
-import axios from '../../axios-instance';
+import axiosApi from '../../axios-instance';
 import {
     ADD_POST_SUCCESS, FETCH_NEWS_FAILURE,
     FETCH_NEWS_REQUEST,
@@ -18,44 +18,42 @@ export const fetchPostFailure = error => ({type: FETCH_POST_FAILURE, error});
 export const addPostSuccess = () => ({type: ADD_POST_SUCCESS});
 export const removePostSuccess = (id) => ({type: REMOVE_POST_SUCCESS, id});
 
-export const fetchNews = () => {
-    return dispatch => {
+export const fetchNews  = () => async dispatch => {
+    try {
         dispatch(fetchNewsRequest());
-        return axios.get('/news').then(response => {
-            dispatch(fetchNewsSuccess(response.data));
-        }, error => {
-            dispatch(fetchNewsFailure(error));
-        });
+        const response = await axiosApi.get('/news');
+        dispatch(fetchNewsSuccess(response.data));
+    } catch (e) {
+        dispatch(fetchNewsFailure(e));
     }
 };
 
-export const fetchPost = (id) => {
-    return dispatch => {
+export const fetchPost  = (id) => async dispatch => {
+    try {
         dispatch(fetchPostRequest());
-        return axios.get('/news/' + id).then(response => {
-            dispatch(fetchPostSuccess(response.data));
-        }, error => {
-            dispatch(fetchPostFailure(error));
-        });
+        await axiosApi.post('/news', id);
+        dispatch(fetchPostSuccess());
+    } catch (e) {
+        dispatch(fetchPostFailure(e));
     }
 };
 
-export const addPost = (data, history) => {
-    return dispatch => {
-        return axios.post('/news', data).then(
-            () => {
-                dispatch(addPostSuccess());
-                history.push('/');
-            });
+export const addPost  = (data) => async dispatch => {
+    try {
+        dispatch(fetchPostRequest());
+        await axiosApi.post('/news', data);
+        dispatch(addPostSuccess());
+    } catch (e) {
+        dispatch(fetchPostFailure(e));
     }
 };
 
-export const removePost = (id) => {
-    return dispatch => {
-        return axios.delete('/news/'+ id).then(
-            () => {
-                return dispatch(removePostSuccess(id));
-            }
-        )
+export const removePost  = (id) => async dispatch => {
+    try {
+        dispatch(fetchNewsRequest());
+        await axiosApi.delete('/news/' + id);
+        dispatch(removePostSuccess());
+    } catch (e) {
+        dispatch(fetchPostFailure(e));
     }
 };

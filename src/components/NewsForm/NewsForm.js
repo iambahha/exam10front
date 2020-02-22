@@ -4,7 +4,7 @@ import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 class NewsForm extends Component {
     state = {
         title: '',
-        description: '',
+        content: '',
         image: null
     };
 
@@ -40,8 +40,8 @@ class NewsForm extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Label for="description" >Description</Label>
-                            <Input type="textarea" name="description" value={this.state.description} id="description" onChange={this.valueChanged} />
+                        <Label for="content" >content</Label>
+                            <Input type="textarea" name="content" value={this.state.content} id="content" onChange={this.valueChanged} />
                     </FormGroup>
 
                     <FormGroup>

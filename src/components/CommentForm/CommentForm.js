@@ -4,7 +4,7 @@ import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 class CommentForm extends Component {
     state = {
       author: '',
-      message: ''
+      comment: ''
     };
 
     valueChanged = event => {
@@ -15,7 +15,6 @@ class CommentForm extends Component {
     submitHandler = event => {
         event.preventDefault();
         this.props.submit({...this.state, news_id: this.props.news_id});
-
     };
 
     render() {
@@ -28,8 +27,8 @@ class CommentForm extends Component {
                         <Input type="text" name="author" value={this.state.author} id="author"  onChange={this.valueChanged} />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="message">Message</Label>
-                        <Input type="text" name="message" value={this.state.message} id="message"  onChange={this.valueChanged} />
+                        <Label for="comment">comment</Label>
+                        <Input type="text" name="comment" value={this.state.comment} id="comment"  onChange={this.valueChanged} />
                     </FormGroup>
 
                     <Button type="submit" color="warning">Add comment</Button>
