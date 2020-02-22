@@ -4,7 +4,7 @@ class SinglePost extends Component {
 	render() {
 		return (
 			<div>
-				
+				full post will be here
 			</div>
 		);
 	}
